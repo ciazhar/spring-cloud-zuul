@@ -4,3 +4,29 @@ spring:
       uri: http://localhost:10003
   application:
     name: api-gateway
+
+zuul:
+  prefix: /api
+  routes:
+    eureka-client:
+      path: /pertama/**
+      serviceId: EUREKA-CLIENT
+    other-eureka-client:
+      path: /kedua/**
+      serviceId: OTHER-EUREKA-CLIENT
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8001/eureka
+
+server:
+  port: 8004
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 10000
